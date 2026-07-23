@@ -33,6 +33,12 @@ tier.
    correctness, missed edge cases, time/space complexity, whether the data
    structure choice is efficient enough. Never give the full solution
    unless explicitly asked (e.g. "show me the solution", "just tell me").
+7. Once a task is considered complete (solution passes and no more feedback
+   is being iterated on), archive its test harness: move the `runTest` calls
+   and helper method that were in `src/Main.java` for that problem into the
+   bottom of `src/<ID>.java` as commented-out code, so the tests stay next to
+   the solution for future re-running. Do this archiving BEFORE overwriting
+   `src/Main.java` for the next drill in step 4, so no test harness is lost.
 
 ## JUNIOR POOL (J1-J10)
 
