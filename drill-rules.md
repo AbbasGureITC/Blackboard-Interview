@@ -3,7 +3,12 @@
 State lives in `progress.md` as a JSON block: `tier`, `sentInTier` (IDs already
 sent in the current tier), and `history` (list of `{date, id, topic}`).
 
-## When asked for "today's drill"
+Cadence is weekly: assume the previous drill was completed, and each time the
+user asks for "this week's drill" (or "today's drill"), give exactly one new
+problem — never re-send one already logged in `sentInTier` for the current
+tier.
+
+## When asked for "this week's drill"
 
 1. Read `progress.md`.
 2. Pick one problem from the current tier's pool below that is NOT in
