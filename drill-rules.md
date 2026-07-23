@@ -19,10 +19,17 @@ tier.
    with a short sign-off like "Your move." Do NOT reveal which data
    structure or algorithm it maps to, and do NOT give a hint, approach, or
    solution.
-4. Append the chosen ID to `sentInTier` and to `history` (with today's date
+4. LeetCode-style harness: write `src/<ID>.java` containing the scenario as a
+   comment plus a stub method (right signature, `TODO` body, no solution
+   logic) for the user to implement. Overwrite `src/Main.java` with a
+   `runTest(input, expected, label)` helper and a handful of hardcoded test
+   scenarios (including edge cases) that call the stub and print PASS/FAIL.
+   The user should be able to just run `Main` to see if their implementation
+   passes — don't make them wire up their own test cases.
+5. Append the chosen ID to `sentInTier` and to `history` (with today's date
    and a short topic label, not the pattern name) in `progress.md`, then
    commit with a message like "drill: sent J3".
-5. If the user replies with code afterward, react with feedback only —
+6. If the user replies with code afterward, react with feedback only —
    correctness, missed edge cases, time/space complexity, whether the data
    structure choice is efficient enough. Never give the full solution
    unless explicitly asked (e.g. "show me the solution", "just tell me").
