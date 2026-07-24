@@ -1,18 +1,31 @@
-import J.J3;
+import J.J4;
+
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        runTest(new int[]{100, 250, 80, 400, 300}, 400, "peak in the middle");
-        runTest(new int[]{500, 400, 300, 200}, 500, "peak on day one");
-        runTest(new int[]{100, 200, 300, 450}, 450, "peak on last day");
-        runTest(new int[]{-50, -20, -100}, -20, "all negative balances (overdrawn all month)");
-        runTest(new int[]{750}, 750, "single day");
+        runTest(List.of("C100", "C200", "C100", "C300", "C100", "C200"),
+                Map.of("C100", 3, "C200", 2, "C300", 1),
+                "mixed repeat counts");
+        runTest(List.of("C100", "C200", "C300"),
+                Map.of("C100", 1, "C200", 1, "C300", 1),
+                "no repeats");
+        runTest(List.of(),
+                Map.of(),
+                "empty log");
+        runTest(List.of("C100"),
+                Map.of("C100", 1),
+                "single call");
+        runTest(List.of("C100", "C100", "C100"),
+                Map.of("C100", 3),
+                "same customer calling repeatedly");
     }
 
-    private static void runTest(int[] input, int expected, String label) {
-        int actual = J3.highestBalance(input);
-        boolean pass = actual == expected;
-        System.out.printf("[%s] %s - expected=%d actual=%d%n",
+    private static void runTest(List<String> input, Map<String, Integer> expected, String label) {
+        Map<String, Integer> actual = J4.callCounts(input);
+        boolean pass = actual != null && actual.equals(expected);
+        System.out.printf("[%s] %s - expected=%s actual=%s%n",
                 pass ? "PASS" : "FAIL", label, expected, actual);
     }
 }
