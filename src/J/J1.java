@@ -1,3 +1,5 @@
+package J;
+
 import java.util.List;
 
 // You're closing out the books for a merchant account and need the end-of-day
@@ -21,7 +23,7 @@ public class J1 {
     // }
     //
     // private static void runTest(List<Double> input, double expected, String label) {
-    //     double actual = J1.totalSpent(input);
+    //     double actual = J.J1.totalSpent(input);
     //     boolean pass = Math.abs(actual - expected) < 1e-9;
     //     System.out.printf("[%s] %s - expected=%.2f actual=%.2f%n",
     //             pass ? "PASS" : "FAIL", label, expected, actual);
