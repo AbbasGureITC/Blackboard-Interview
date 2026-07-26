@@ -1,27 +1,30 @@
-import J.J5;
+import J.J6;
 
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        runTest(List.of(101, 102, 103, 104), List.of(103, 104, 105, 106),
-                List.of(103, 104), "some overlap");
-        runTest(List.of(101, 102), List.of(201, 202),
-                List.of(), "no overlap");
-        runTest(List.of(101, 102, 103), List.of(101, 102, 103),
-                List.of(101, 102, 103), "identical lists");
-        runTest(List.of(), List.of(101, 102),
-                List.of(), "one branch has no accounts");
-        runTest(List.of(101, 101, 102), List.of(101, 103),
-                List.of(101), "duplicate account number within a branch");
+        runTest(List.of("deposit", "withdrawal", "deposit", "transfer", "deposit"),
+                Map.of("deposit", 3, "withdrawal", 1, "transfer", 1),
+                "mixed types");
+        runTest(List.of(),
+                Map.of(),
+                "empty log");
+        runTest(List.of("withdrawal", "withdrawal", "withdrawal"),
+                Map.of("withdrawal", 3),
+                "single type repeated");
+        runTest(List.of("deposit"),
+                Map.of("deposit", 1),
+                "single entry");
+        runTest(List.of("transfer", "deposit", "withdrawal"),
+                Map.of("transfer", 1, "deposit", 1, "withdrawal", 1),
+                "one of each");
     }
 
-    private static void runTest(List<Integer> branchA, List<Integer> branchB,
-                                 List<Integer> expected, String label) {
-        List<Integer> actual = J5.sharedAccounts(branchA, branchB);
-        boolean pass = actual != null
-                && new java.util.HashSet<>(actual).equals(new java.util.HashSet<>(expected))
-                && actual.size() == new java.util.HashSet<>(actual).size();
+    private static void runTest(List<String> types, Map<String, Integer> expected, String label) {
+        Map<String, Integer> actual = J6.countByType(types);
+        boolean pass = actual != null && actual.equals(expected);
         System.out.printf("[%s] %s - expected=%s actual=%s%n",
                 pass ? "PASS" : "FAIL", label, expected, actual);
     }
