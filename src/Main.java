@@ -9,13 +9,13 @@ public class Main {
                 Map.of("deposit", 3, "withdrawal", 1, "transfer", 1),
                 "mixed types");
         runTest(List.of(),
-                Map.of(),
+                Map.of("deposit", 0, "withdrawal", 0, "transfer", 0),
                 "empty log");
         runTest(List.of("withdrawal", "withdrawal", "withdrawal"),
-                Map.of("withdrawal", 3),
+                Map.of("deposit", 0, "withdrawal", 3, "transfer", 0),
                 "single type repeated");
         runTest(List.of("deposit"),
-                Map.of("deposit", 1),
+                Map.of("deposit", 1, "withdrawal", 0, "transfer", 0),
                 "single entry");
         runTest(List.of("transfer", "deposit", "withdrawal"),
                 Map.of("transfer", 1, "deposit", 1, "withdrawal", 1),
