@@ -1,30 +1,27 @@
-import J.J4;
+import J.J5;
 
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        runTest(List.of("C100", "C200", "C100", "C300", "C100", "C200"),
-                Map.of("C100", 3, "C200", 2, "C300", 1),
-                "mixed repeat counts");
-        runTest(List.of("C100", "C200", "C300"),
-                Map.of("C100", 1, "C200", 1, "C300", 1),
-                "no repeats");
-        runTest(List.of(),
-                Map.of(),
-                "empty log");
-        runTest(List.of("C100"),
-                Map.of("C100", 1),
-                "single call");
-        runTest(List.of("C100", "C100", "C100"),
-                Map.of("C100", 3),
-                "same customer calling repeatedly");
+        runTest(List.of(101, 102, 103, 104), List.of(103, 104, 105, 106),
+                List.of(103, 104), "some overlap");
+        runTest(List.of(101, 102), List.of(201, 202),
+                List.of(), "no overlap");
+        runTest(List.of(101, 102, 103), List.of(101, 102, 103),
+                List.of(101, 102, 103), "identical lists");
+        runTest(List.of(), List.of(101, 102),
+                List.of(), "one branch has no accounts");
+        runTest(List.of(101, 101, 102), List.of(101, 103),
+                List.of(101), "duplicate account number within a branch");
     }
 
-    private static void runTest(List<String> input, Map<String, Integer> expected, String label) {
-        Map<String, Integer> actual = J4.callCounts(input);
-        boolean pass = actual != null && actual.equals(expected);
+    private static void runTest(List<Integer> branchA, List<Integer> branchB,
+                                 List<Integer> expected, String label) {
+        List<Integer> actual = J5.sharedAccounts(branchA, branchB);
+        boolean pass = actual != null
+                && new java.util.HashSet<>(actual).equals(new java.util.HashSet<>(expected))
+                && actual.size() == new java.util.HashSet<>(actual).size();
         System.out.printf("[%s] %s - expected=%s actual=%s%n",
                 pass ? "PASS" : "FAIL", label, expected, actual);
     }
