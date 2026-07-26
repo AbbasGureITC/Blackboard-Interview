@@ -4,11 +4,17 @@ package J;
 // account numbers that exist on both sides before they can reconcile
 // balances. You've got each branch's list of account numbers. Your move.
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class J5 {
     public static List<Integer> sharedAccounts(List<Integer> branchA, List<Integer> branchB) {
-        // TODO: implement
-        return null;
+        Set<Integer> bSet = new HashSet<>(branchB);
+        return branchA.stream()
+                .filter(bSet::contains)
+                .sorted()
+                .distinct()
+                .toList();
     }
 }
