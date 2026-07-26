@@ -21,6 +21,20 @@ public class J5 {
     }
 
     /*
+     *  How the stream version above reads: `bSet` is a HashSet built from
+     *  branchB, so asking "is this account in branchB?" is O(1) instead
+     *  of scanning a list. `.filter(bSet::contains)` walks branchA and
+     *  keeps only the accounts that also exist in bSet - everything else
+     *  is dropped. `.sorted()` puts what's left in numeric order (a
+     *  HashSet-based lookup doesn't preserve branchA's original order,
+     *  so this makes the output deterministic instead of arbitrary).
+     *  `.distinct()` removes repeats - relevant if branchA itself had the
+     *  same account number listed twice. `.toList()` is the terminal
+     *  step: it collects everything still in the stream into an actual
+     *  List<Integer> to return.
+     */
+
+    /*
      *  two-pointer version, for reference:
 
      public static List<Integer> sharedAccountsTwoPointer(List<Integer> branchA, List<Integer> branchB) {
