@@ -1,27 +1,30 @@
-import J.J8;
+import J.J9;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        runTest(List.of(100, 250, 80, 400, 300),
-                new int[]{80, 400}, "spread of amounts");
-        runTest(List.of(500, 400, 300, 200),
-                new int[]{200, 500}, "descending amounts");
-        runTest(List.of(-50, -20, -100),
-                new int[]{-100, -20}, "all negative amounts (refunds/reversals)");
-        runTest(List.of(750),
-                new int[]{750, 750}, "single transaction");
-        runTest(List.of(100, 100, 100),
-                new int[]{100, 100}, "identical amounts");
+        runTest(List.of("login", "deposit $100", "withdrawal $40", "logout"),
+                List.of("logout", "withdrawal $40", "deposit $100", "login"),
+                "typical sequence");
+        runTest(List.of(),
+                List.of(),
+                "empty log");
+        runTest(List.of("login"),
+                List.of("login"),
+                "single entry");
+        runTest(List.of("deposit $50", "deposit $50"),
+                List.of("deposit $50", "deposit $50"),
+                "duplicate entries");
+        runTest(List.of("a", "b", "c", "d", "e"),
+                List.of("e", "d", "c", "b", "a"),
+                "five entries");
     }
 
-    private static void runTest(List<Integer> amounts, int[] expected, String label) {
-        int[] actual = J8.minAndMax(amounts);
-        boolean pass = actual != null && Arrays.equals(actual, expected);
+    private static void runTest(List<String> log, List<String> expected, String label) {
+        List<String> actual = J9.mostRecentFirst(log);
+        boolean pass = actual != null && actual.equals(expected);
         System.out.printf("[%s] %s - expected=%s actual=%s%n",
-                pass ? "PASS" : "FAIL", label, Arrays.toString(expected),
-                actual == null ? "null" : Arrays.toString(actual));
+                pass ? "PASS" : "FAIL", label, expected, actual);
     }
 }
