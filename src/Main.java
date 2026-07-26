@@ -1,30 +1,24 @@
-import J.J6;
+import J.J7;
 
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        runTest(List.of("deposit", "withdrawal", "deposit", "transfer", "deposit"),
-                Map.of("deposit", 3, "withdrawal", 1, "transfer", 1),
-                "mixed types");
-        runTest(List.of(),
-                Map.of("deposit", 0, "withdrawal", 0, "transfer", 0),
-                "empty log");
-        runTest(List.of("withdrawal", "withdrawal", "withdrawal"),
-                Map.of("deposit", 0, "withdrawal", 3, "transfer", 0),
-                "single type repeated");
-        runTest(List.of("deposit"),
-                Map.of("deposit", 1, "withdrawal", 0, "transfer", 0),
-                "single entry");
-        runTest(List.of("transfer", "deposit", "withdrawal"),
-                Map.of("transfer", 1, "deposit", 1, "withdrawal", 1),
-                "one of each");
+        runTest("John Smith", List.of("Jane Doe", "John Smith", "Bob Lee"),
+                true, "customer is blacklisted");
+        runTest("Alice Wong", List.of("Jane Doe", "Bob Lee"),
+                false, "customer not blacklisted");
+        runTest("Anyone", List.of(),
+                false, "empty blacklist");
+        runTest("Bob Lee", List.of("Bob Lee"),
+                true, "single-entry blacklist match");
+        runTest("Jane Doe", List.of("Jane Doe", "Jane Doe"),
+                true, "duplicate entries in blacklist");
     }
 
-    private static void runTest(List<String> types, Map<String, Integer> expected, String label) {
-        Map<String, Integer> actual = J6.countByType(types);
-        boolean pass = actual != null && actual.equals(expected);
+    private static void runTest(String customerName, List<String> blacklist, boolean expected, String label) {
+        boolean actual = J7.isBlacklisted(customerName, blacklist);
+        boolean pass = actual == expected;
         System.out.printf("[%s] %s - expected=%s actual=%s%n",
                 pass ? "PASS" : "FAIL", label, expected, actual);
     }
