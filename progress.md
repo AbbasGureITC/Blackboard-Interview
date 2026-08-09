@@ -1,7 +1,7 @@
 ```json
 {
-  "tier": "junior",
-  "sentInTier": ["J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8", "J9", "J10"],
+  "tier": "mid",
+  "sentInTier": ["M1"],
   "history": [
     {"date": "2026-07-23", "id": "J1", "topic": "daily total spend"},
     {"date": "2026-07-23", "id": "J2", "topic": "duplicate signup detection"},
@@ -12,7 +12,8 @@
     {"date": "2026-07-26", "id": "J7", "topic": "customer blacklist check"},
     {"date": "2026-07-26", "id": "J8", "topic": "largest and smallest transaction"},
     {"date": "2026-07-26", "id": "J9", "topic": "reverse transaction log order"},
-    {"date": "2026-07-26", "id": "J10", "topic": "withdrawals exceeding daily limit"}
+    {"date": "2026-07-26", "id": "J10", "topic": "withdrawals exceeding daily limit"},
+    {"date": "2026-08-09", "id": "M1", "topic": "first repeated transaction ID"}
   ]
 }
 ```

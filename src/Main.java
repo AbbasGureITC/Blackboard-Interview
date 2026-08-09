@@ -1,24 +1,19 @@
-import J.J10;
+import M.M1;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        runTest(List.of(100, 600, 250, 900, 50), 500,
-                List.of(600, 900), "some withdrawals over limit");
-        runTest(List.of(100, 200, 300), 500,
-                List.of(), "none over limit");
-        runTest(List.of(600, 700, 800), 500,
-                List.of(600, 700, 800), "all over limit");
-        runTest(List.of(), 500,
-                List.of(), "no withdrawals today");
-        runTest(List.of(500, 501), 500,
-                List.of(501), "exactly at limit is not over");
+        runTest(List.of("A", "B", "C", "B", "D"), "B", "duplicate appears mid-stream");
+        runTest(List.of("A", "B", "C"), null, "no duplicates");
+        runTest(List.of("A", "A"), "A", "immediate duplicate");
+        runTest(List.of("A", "B", "A", "B"), "A", "first repeat wins even if others repeat later");
+        runTest(List.of(), null, "empty stream");
     }
 
-    private static void runTest(List<Integer> withdrawals, int dailyLimit, List<Integer> expected, String label) {
-        List<Integer> actual = J10.overLimit(withdrawals, dailyLimit);
-        boolean pass = actual != null && actual.equals(expected);
+    private static void runTest(List<String> transactionIds, String expected, String label) {
+        String actual = M1.firstDuplicate(transactionIds);
+        boolean pass = actual == null ? expected == null : actual.equals(expected);
         System.out.printf("[%s] %s - expected=%s actual=%s%n",
                 pass ? "PASS" : "FAIL", label, expected, actual);
     }
